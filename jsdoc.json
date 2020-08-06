@@ -1,0 +1,37 @@
+{
+  "tags": {
+    "allowUnknownTags": true
+  },
+  "source": {
+    "include": [
+      "./"
+    ],
+    "exclude": [
+      ".git",
+      "node_modules",
+      "custom-template"
+    ],
+    "includePattern": ".+\\.js(x|doc)?$"
+  },
+  "plugins": ["plugins/markdown"],
+  "opts": {
+    "encoding": "utf8",
+    "template": "./custom-template",
+    "destination": "./docs/",
+    "readme": "./readme.md",
+    "recurse": true,
+    "verbose": true
+  },
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true,
+      "includeDate": true
+    }
+  }
+}
