@@ -1,4 +1,3 @@
-const express = require('express');
 const logger = require('./logger.js');
 const path = require('path');
 const authUtils = require('./services/auth-service');
@@ -6,13 +5,32 @@ const port = process.env.PORT || 8080;
 let loginRouter = require('./routes/login');
 let authRouter = require('./routes/secured');
 
+/** Express router providing user related routes
+ * @module app
+ * @requires express
+ */
+
+/**
+ * express module
+ * @const
+ */
+
+const express = require('express');
+
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-//authentication handler
+/**
+ * This miidleware triggers everytime when a request comes & check if it needs authentication or new token or nothing then acts accordingly.
+ * @name AuthenticationHandler
+ * @function
+ * @memberof module:app
+ * @inner
+ */
+
 app.use((req, res, next) => {
   let routeUrl = req.originalUrl;
   let httpMethod = req.method;
@@ -48,7 +66,14 @@ app.use((req, res, next) => {
 app.use('/api/login', loginRouter);
 app.use('/api/secured', authRouter);
 
-//Response Handler
+/**
+ * This miidleware triggers everytime at the end of the response & set headers & data.
+ * @name responseHandler
+ * @function
+ * @memberof module:app
+ * @inner
+ */
+
 app.use((req, res) => {
   logger.info(`Response Handler - ${req.method} ${req.originalUrl}`);
   if(req.newTokenRequired && req.session.userData){
@@ -70,7 +95,9 @@ app.use((req, res) => {
 });
 
 app.listen(port, () =>{
+  console.log('Listening to 8080!');
   logger.info('Listening to 8080!');
 });
 
+app.on( 'close', () => console.log('Closing'));
 module.exports = app; // for testing
