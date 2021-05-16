@@ -1,4 +1,4 @@
-# Microservice to generate & authenticate JWT
+# Microservice to create a thumbnail from an image url via JWT Authentication
 
 This Microservice let you do generate a JWT for any username & password & then let you access secured path which needs the generated JWT in header.
 Secured Paths :
